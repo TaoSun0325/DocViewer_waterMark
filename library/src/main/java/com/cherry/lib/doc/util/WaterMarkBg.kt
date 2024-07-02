@@ -1,0 +1,68 @@
+package com.thundersoft.tds.mdm.view
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.Paint
+import android.graphics.PixelFormat
+import android.graphics.drawable.Drawable
+import androidx.annotation.IntRange
+
+/**
+ * Created by fulushan on 18/4/5.
+ */
+class WaterMarkBg
+/**
+ * 初始化构造
+ * @param context 上下文
+ * @param labels 水印文字列表 多行显示支持
+ * @param degress 水印角度
+ * @param fontSize 水印文字大小
+ */(
+    private val context: Context, private val labels: List<String>, //角度
+    private val degress: Int, //字体大小 单位sp
+    private val fontSize: Int
+) : Drawable() {
+    private val paint = Paint()
+    override fun draw(canvas: Canvas) {
+        val width = getBounds().right
+        val height = getBounds().bottom
+        canvas.drawColor(Color.parseColor("#40F3F5F9"))
+        paint.setColor(Color.parseColor("#50AEAEAE"))
+        paint.isAntiAlias = true
+        paint.textSize = sp2px(context, fontSize.toFloat()).toFloat()
+        canvas.save()
+        canvas.rotate(degress.toFloat())
+        val textWidth = paint.measureText(labels[0])
+        var index = 0
+        var positionY = height / 10
+        while (positionY <= height) {
+            val fromX = -width + index++ % 2 * textWidth
+            var positionX = fromX
+            while (positionX < width) {
+                var spacing = 0 //间距
+                for (label in labels) {
+                    canvas.drawText(label, positionX, (positionY + spacing).toFloat(), paint)
+                    spacing = spacing + 50
+                }
+                positionX += textWidth * 2
+            }
+            positionY += height / 10 + 80
+        }
+        canvas.restore()
+    }
+
+    override fun setAlpha(@IntRange(from = 0, to = 255) alpha: Int) {}
+    override fun setColorFilter(colorFilter: ColorFilter?) {}
+    override fun getOpacity(): Int {
+        return PixelFormat.UNKNOWN
+    }
+
+    companion object {
+        fun sp2px(context: Context, spValue: Float): Int {
+            val fontScale = context.resources.displayMetrics.scaledDensity
+            return (spValue * fontScale + 0.5f).toInt()
+        }
+    }
+}

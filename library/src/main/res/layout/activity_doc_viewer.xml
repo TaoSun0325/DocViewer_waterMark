@@ -17,4 +17,9 @@
         app:dv_engine="internal"
         app:dv_quality="normal"/>
 
+    <TextView
+        android:id="@+id/waterMarkBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </FrameLayout>

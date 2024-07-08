@@ -44,6 +44,12 @@ open class DocViewerActivity : AppCompatActivity() {
         initData(intent)
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        setResult(RESULT_OK)
+        finish()
+    }
+
     fun initView() {
     }
 

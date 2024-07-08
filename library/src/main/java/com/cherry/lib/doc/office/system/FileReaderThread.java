@@ -129,15 +129,10 @@ public class FileReaderThread extends Thread {
             reader.dispose();
             msg.what = MainConstant.HANDLER_MESSAGE_SUCCESS;
             //handler.handleMessage(msg);
-        } catch (OutOfMemoryError eee) {
+        } catch (OutOfMemoryError | Exception | AbortReaderError eee) {
+            eee.printStackTrace();
             msg.what = MainConstant.HANDLER_MESSAGE_ERROR;
             msg.obj = eee;
-        } catch (Exception ee) {
-            msg.what = MainConstant.HANDLER_MESSAGE_ERROR;
-            msg.obj = ee;
-        } catch (AbortReaderError ee) {
-            msg.what = MainConstant.HANDLER_MESSAGE_ERROR;
-            msg.obj = ee;
         } finally {
             handler.handleMessage(msg);
             control = null;

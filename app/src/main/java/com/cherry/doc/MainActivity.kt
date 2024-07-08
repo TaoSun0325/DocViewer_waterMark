@@ -258,5 +258,10 @@ class MainActivity : AppCompatActivity(),OnClickListener,OnItemClickListener,
 
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        setResult(RESULT_OK)
+        finish()
+    }
 
 }

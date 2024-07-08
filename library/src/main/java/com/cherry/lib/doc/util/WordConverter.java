@@ -534,6 +534,11 @@ public class WordConverter {
         FileInputStream in = null;
         POIFSFileSystem pfs = null;
 
+        Log.d(getClass().getSimpleName(),"nameStr : " + nameStr);
+        if (nameStr.startsWith("content:/c")) {
+            nameStr.replace("content:/c", "content://c");
+            Log.d(getClass().getSimpleName(),"new nameStr : " + nameStr);
+        }
         try {
             in = new FileInputStream(nameStr);
             pfs = new POIFSFileSystem(in);

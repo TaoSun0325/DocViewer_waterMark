@@ -34,7 +34,13 @@ class WaterMarkBg
         paint.textSize = sp2px(context, fontSize.toFloat()).toFloat()
         canvas.save()
         canvas.rotate(degress.toFloat())
-        val textWidth = paint.measureText(labels[0])
+        var textWidth: Float = paint.measureText(labels[0])
+        for (label in labels) {
+            val newWidth: Float = paint.measureText(label)
+            if (newWidth > textWidth) {
+                textWidth = newWidth
+            }
+        }
         var index = 0
         var positionY = height / 10
         while (positionY <= height) {

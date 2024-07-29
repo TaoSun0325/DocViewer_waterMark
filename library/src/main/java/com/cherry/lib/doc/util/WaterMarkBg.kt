@@ -22,14 +22,19 @@ class WaterMarkBg
  */(
     private val context: Context, private val labels: List<String>, //角度
     private val degress: Int, //字体大小 单位sp
-    private val fontSize: Int
+    private val fontSize: Int,
+    private val color: String? = null
 ) : Drawable() {
     private val paint = Paint()
     override fun draw(canvas: Canvas) {
         val width = getBounds().right
         val height = getBounds().bottom
         canvas.drawColor(Color.parseColor("#40F3F5F9"))
-        paint.setColor(Color.parseColor("#50AEAEAE"))
+        if (color == null) {
+            paint.setColor(Color.parseColor("#50AEAEAE"))
+        } else {
+            paint.setColor(Color.parseColor(color))
+        }
         paint.isAntiAlias = true
         paint.textSize = sp2px(context, fontSize.toFloat()).toFloat()
         canvas.save()

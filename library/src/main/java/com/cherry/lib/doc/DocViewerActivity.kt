@@ -64,9 +64,10 @@ open class DocViewerActivity : AppCompatActivity() {
         labels.add("不可扩散")
         val labelList = intent?.getStringArrayListExtra(Constant.INTENT_WATER_LABELS) ?: labels
         val degress = intent?.getIntExtra(Constant.INTENT_WATER_DEGRESS, -30) ?: -30
-        val fontSize = intent?.getIntExtra(Constant.INTENT_WATER_DEGRESS, 13) ?: 13
+        val fontSize = intent?.getIntExtra(Constant.INTENT_WATER_FONT_SIZE, 13) ?: 13
+        val fontColor = intent?.getStringExtra(Constant.INTENT_WATER_FONT_COLOR)
 
-        waterMarkBackground.background = WaterMarkBg(this, labelList, degress, fontSize)
+        waterMarkBackground.background = WaterMarkBg(this, labelList, degress, fontSize, fontColor)
         mDocView.openDoc(this,docUrl,docSourceType,fileType,false, DocEngine.values().first { it.value == engine })
         Log.e(TAG, "initData-docUrl = $docUrl")
         Log.e(TAG, "initData-docSourceType = $docSourceType")

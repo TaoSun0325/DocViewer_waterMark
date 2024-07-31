@@ -131,8 +131,9 @@ public class TXTKit
                     }
                 };                
 
-                new TXTEncodingDialog(control, control.getMainFrame().getActivity(), da, 
-                    vector, DialogConstant.ENCODING_DIALOG_ID).show();
+//                new TXTEncodingDialog(control, control.getMainFrame().getActivity(), da,
+//                    vector, DialogConstant.ENCODING_DIALOG_ID).show();
+                new FileReaderThread(control, handler, filePath,docSourceType,-1, "UTF-8").start();
                 
             }
             else

@@ -27,7 +27,7 @@ class WaterMarkBg
 ) : Drawable() {
     private val paint = Paint()
     override fun draw(canvas: Canvas) {
-        val width = getBounds().right
+        val width = getBounds().right * 2
         val height = getBounds().bottom
         canvas.drawColor(Color.parseColor("#40F3F5F9"))
         if (color == null) {
@@ -47,7 +47,7 @@ class WaterMarkBg
             }
         }
         var index = 0
-        var positionY = height / 10
+        var positionY = - height / 5
         while (positionY <= height) {
             val fromX = -width + index++ % 2 * textWidth
             var positionX = fromX

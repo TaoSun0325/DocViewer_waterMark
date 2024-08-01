@@ -58,16 +58,16 @@ open class DocViewerActivity : AppCompatActivity() {
         docSourceType = intent?.getIntExtra(Constant.INTENT_SOURCE_KEY, 0) ?: 0
         fileType = intent?.getIntExtra(Constant.INTENT_TYPE_KEY, -1) ?: -1
         engine = intent?.getIntExtra(Constant.INTENT_ENGINE_KEY, DocEngine.INTERNAL.value) ?: DocEngine.INTERNAL.value
-        val createTimeSdf1 = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val labels = ArrayList<String>()
-        labels.add("日期：" + createTimeSdf1.format(Date()))
-        labels.add("不可扩散")
-        val labelList = intent?.getStringArrayListExtra(Constant.INTENT_WATER_LABELS) ?: labels
+        val labelList = intent?.getStringArrayListExtra(Constant.INTENT_WATER_LABELS)
         val degress = intent?.getIntExtra(Constant.INTENT_WATER_DEGRESS, -30) ?: -30
         val fontSize = intent?.getIntExtra(Constant.INTENT_WATER_FONT_SIZE, 13) ?: 13
         val fontColor = intent?.getStringExtra(Constant.INTENT_WATER_FONT_COLOR)
 
-        waterMarkBackground.background = WaterMarkBg(this, labelList, degress, fontSize, fontColor)
+        if (labelList != null) {
+            waterMarkBackground.background = WaterMarkBg(this, labelList, degress, fontSize, fontColor)
+        } else {
+            waterMarkBackground.background = null
+        }
         mDocView.openDoc(this,docUrl,docSourceType,fileType,false, DocEngine.values().first { it.value == engine })
         Log.e(TAG, "initData-docUrl = $docUrl")
         Log.e(TAG, "initData-docSourceType = $docSourceType")
